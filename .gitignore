@@ -35,3 +35,6 @@ build
 
 # Macos be like
 **/.DS_Store
+
+#VS Code dir
+.vscode
