@@ -5,6 +5,19 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy on'     
+        required: true
+        default: "dev"
+      action:
+        description: 'Terraform Action to perform'     
+        required: true
+        default: "autoapply"
+      extraArgs:
+        description: 'Extra Args for tf command'
+        required: false
 
 jobs:
   build:
