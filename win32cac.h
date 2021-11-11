@@ -6,7 +6,7 @@
 
 #pragma warning(push, 0)
 #include "cocos-headers/cocos2dx/include/cocos2d.h"
-#include <gd.h>
+#include "gd.h/include/gd.h"
 #include "minhook/include/MinHook.h"
 #include <mutex>
 #pragma warning(pop)
