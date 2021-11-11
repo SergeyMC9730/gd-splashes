@@ -5,9 +5,9 @@
 #include <windows.h>
 
 #pragma warning(push, 0)
-#include <cocos2d.h>
+#include "cocos-headers/cocos2dx/include/cocos2d.h"
 #include <gd.h>
-#include <MinHook.h>
+#include "minhook/include/MinHook.h"
 #include <mutex>
 #pragma warning(pop)
 
