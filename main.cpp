@@ -5,41 +5,10 @@
 	using namespace cocos2d;
 #else
 	#include "win32cac.h"
+	#include "tools_layer.hpp"
 #endif
 #include "main.hpp"
 
-class $implement(ProfilePage, ProfilePageLayer){
- public:
-	static inline bool (__thiscall* _init)(ProfilePage* self, int accountID, bool unknown);
-
-	void errorNotImplemented(CCObject* sender){
-		auto alert = FLAlertLayer::create(NULL, "Not implemented", "OK", NULL, "Tools Page is not implemented yet.");
-		alert->show();
-	}
-
-	bool profile(){
-		if (!_init(this, this->m_nAccountID, true)) return false;
-
-		CCSprite* ToolsPageSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
-
-		ToolsPageSprite->setColor({0x42, 0x41, 0x41});
-
-		gd::CCMenuItemSpriteExtra *ToolsPage = CCMenuItemSpriteExtra::create(
-		    ToolsPageSprite,
-		    this,
-		    menu_selector(ProfilePageLayer::errorNotImplemented)
-		);
-
-		CCMenu* ToolsPageMenu = CCMenu::create();
-		ToolsPageMenu->addChild(ToolsPage);
-		ToolsPageMenu->setPosition(ccp(95, -7));
-		ToolsPageMenu->setScale(.8f);
-
-		addChild(ToolsPageMenu);
-
-		return true;
-	}
-};
 class $implement(MenuLayer, MainLayer) {
  public:
 	static inline bool (__thiscall* _init)(MenuLayer* self);
@@ -78,7 +47,8 @@ class $implement(MenuLayer, MainLayer) {
 		CCSprite* YouTubeTrailerSprite = CCSprite::createWithSpriteFrameName("GJ_trailerBtn_001.png");
 		CCSprite* GooglePlusSprite  = CCSprite::createWithSpriteFrameName("GJ_gpBtn_001.png");
 		CCSprite* GooglePlayGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gpgBtn_001.png");
-		CCSprite* EveryplaySprite = CCSprite::createWithSpriteFrameName("GJ_gpgBtn_001.png");
+		CCSprite* EveryplaySprite = CCSprite::createWithSpriteFrameName("GJ_everyplayBtn_001.png");
+		CCSprite* ToolsSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
 
 		GooglePlusSprite->setColor({0x42, 0x41, 0x41});
 		EveryplaySprite->setColor({0x42, 0x41, 0x41});
@@ -115,6 +85,11 @@ class $implement(MenuLayer, MainLayer) {
 		    EveryplaySprite,
 		    this,
 		    menu_selector(MainLayer::errorClosedB)
+		);
+		gd::CCMenuItemSpriteExtra *Tools = CCMenuItemSpriteExtra::create(
+		    ToolsSprite,
+		    this,
+		    menu_selector(ToolsLayer::switchToCustomLayerButton)
 		);
 
 		CCLabelBMFont * test = CCLabelBMFont::create("Splash", "bigFont.fnt");
@@ -154,8 +129,13 @@ class $implement(MenuLayer, MainLayer) {
 
 		CCMenu* EveryplayMenu = CCMenu::create();
 		EveryplayMenu->addChild(Everyplay);
-		EveryplayMenu->setPosition(ccp(49, -7));
+		EveryplayMenu->setPosition(ccp(53, -7));
 		EveryplayMenu->setScale(.8f);
+
+		CCMenu* ToolsMenu = CCMenu::create();
+		ToolsMenu->addChild(Tools);
+		ToolsMenu->setPosition(ccp(408, 35));
+		ToolsMenu->setScale(.8f);
 
 		menuIcons->addChild(AppStoreGamesMenu);
 		menuIcons->addChild(youtubeTrailerMenu);
@@ -163,6 +143,7 @@ class $implement(MenuLayer, MainLayer) {
 		menuIcons->addChild(GooglePlusMenu);
 		menuIcons->addChild(GooglePlayGamesMenu);
 		menuIcons->addChild(EveryplayMenu);
+		menuIcons->addChild(ToolsMenu);
 
 		menuIcons->setPosition(ccp(0, 0));
 
@@ -184,12 +165,6 @@ void inject() {
 	    reinterpret_cast<void*>(base + MenuLayerOffset),
 		reinterpret_cast<void*>(extract(&MainLayer::inithook)),
 	    reinterpret_cast<void**>(&MainLayer::_init)
-	);
-
-	MH_CreateHook(
-	    reinterpret_cast<void*(__fastcall*)(int, bool)>(base + ProfilePageOffset),
-		reinterpret_cast<void*>(extract(&ProfilePageLayer::profile)),
-	    reinterpret_cast<void**>(&ProfilePageLayer::_init)
 	);
 
 	MH_EnableHook(MH_ALL_HOOKS);
