@@ -11,7 +11,7 @@ class $implement(MenuLayer, MainLayer) {
  public:
 	static inline bool (__thiscall* _init)(MenuLayer* self);
 
-	static void buttonCallback(CCObject* sender) {
+	void buttonCallback(CCObject* sender) {
 		auto alert = FLAlertLayer::create(NULL, "Mod", "Ok", NULL, "<cg>custom button!</c>");
 		alert->show();
 	}
