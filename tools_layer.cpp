@@ -17,6 +17,7 @@ void errorNotImplemented(CCObject* sender){
 }
 void errorPermissionDenied(CCObject* sender){
     auto alert = FLAlertLayer::create(NULL, "Permission Denied", "OK", NULL, "You haven't enough permissons to set execute this tool!");
+    alert->show();
 }
 
 bool ToolsLayer::init() {
@@ -24,15 +25,15 @@ bool ToolsLayer::init() {
     auto gdps = CCLabelBMFont::create("GDPS Tools", "bigFont.fnt");
 
     gdps->setPosition(ccp(127, 296));
-    gdps->setScale(0.625f)
+    gdps->setScale(0.625f);
 
     addChild(gdps);
 
-    CCSprite* ReuploadSongSprite = CCSprite::create("ReuploadSong.png");
-	CCSprite* SetAsEModSprite = CCSprite::create("SetAsEMod.png");
-	CCSprite* SetAsSModSprite  = CCSprite::create("SetAsSMod.png");
-    CCSprite* backgroundSprite = CCSprite::create("GJ_gradientBG.png");
-    ССSprite* BackSprite = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
+    auto ReuploadSongSprite = CCSprite::create("ReuploadSong.png");
+	auto SetAsEModSprite = CCSprite::create("SetAsEMod.png");
+	auto SetAsSModSprite = CCSprite::create("SetAsSMod.png");
+    auto backgroundSprite = CCSprite::create("GJ_gradientBG.png");
+    auto BackSprite = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
 
     SetAsEModSprite->setColor({0x42, 0x41, 0x41});
     SetAsSModSprite->setColor({0x42, 0x41, 0x41});
