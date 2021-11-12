@@ -10,7 +10,7 @@
 
 class $implement(ProfilePage, ProfilePageLayer){
  public:
-	static inline bool (__thiscall* _init)(ProfilePage* self);
+	static inline bool (__thiscall* _init)(ProfilePage* self, int accountID, bool unknown);
 
 	void errorNotImplemented(CCObject* sender){
 		auto alert = FLAlertLayer::create(NULL, "Not implemented", "OK", NULL, "Tools Page is not implemented yet.");
@@ -85,6 +85,11 @@ class $implement(MenuLayer, MainLayer) {
 		    this,
 		    menu_selector(MainLayer::youtubeTrailerLink)
 		);
+		gd::CCMenuItemSpriteExtra *YouTubeTrailer22 = CCMenuItemSpriteExtra::create(
+		    YouTubeTrailerSprite,
+		    this,
+		    menu_selector(MainLayer::youtubeTrailerLink)
+		);
 
 		gd::CCMenuItemSpriteExtra *GooglePlus = CCMenuItemSpriteExtra::create(
 		    GooglePlusSprite,
@@ -117,6 +122,11 @@ class $implement(MenuLayer, MainLayer) {
 		youtubeTrailerMenu->addChild(YouTubeTrailer);
 		youtubeTrailerMenu->setPosition(ccp(364, -7));
 		youtubeTrailerMenu->setScale(.8f);
+
+		CCMenu* youtubeTrailer22Menu = CCMenu::create();
+		youtubeTrailer22Menu->addChild(YouTubeTrailer22);
+		youtubeTrailer22Menu->setPosition(ccp(410, -7));
+		youtubeTrailer22Menu->setScale(.8f);
 
 		CCMenu* GooglePlusMenu = CCMenu::create();
 		GooglePlusMenu->addChild(GooglePlus);
@@ -158,7 +168,7 @@ void inject() {
 	MH_CreateHook(
 	    reinterpret_cast<void*(__fastcall*)(int, bool)>(base + ProfilePageOffset),
 		reinterpret_cast<void*>(extract(&ProfilePageLayer::profile)),
-	    reinterpret_cast<void**>(&ProfilePageLayer::_init)
+	    reinterpret_cast<void**(int, bool)>(&ProfilePageLayer::_init)
 	);
 
 	MH_EnableHook(MH_ALL_HOOKS);
