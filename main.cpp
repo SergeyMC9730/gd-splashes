@@ -10,14 +10,15 @@
 
 class $implement(MenuLayer, MainLayer) {
  public:
-	static inline bool (__thiscall* _init)(MenuLayer* self);
+	static inline bool (__thiscall* _initA)(MenuLayer* self);
+	static inline bool (__thiscall* _initB)(ProfilePage* self);
 
-	void buttonCallback(CCObject* sender) {
-		auto alert = FLAlertLayer::create(NULL, "Mod", "Ok", NULL, "<cg>custom button!</c>");
+	void errorClosed(CCObject* sender){
+		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Google+ is currently closed by Google.");
 		alert->show();
 	}
-	void errorClosed(CCObject* sender){
-		auto alert = FLAlertLayer::create(NULL, "Closed", "Google+ is currently closed by Google.", NULL, "");
+	void errorNotImplemented(COCOS2D_VERSION{
+		auto alert = FLAlertLayer::create(NULL, "Not implemented", "OK", NULL, "Tools Page is not implemented yet.");
 		alert->show();
 	}
 	
@@ -25,13 +26,37 @@ class $implement(MenuLayer, MainLayer) {
 		ShellExecute(0, 0, "https://www.youtube.com/watch?v=k90y6PIzIaE", 0, 0, SW_SHOW);
 	}
 	void GooglePlayGamesLink(CCObject *sender){
-		ShellExecute(0, 0, "https://play.google.com/store/apps/details?id=com.robtopx.geometryjump&hl=ru&gl=US", 0, 0, SW_SHOW);
+		ShellExecute(0, 0, "https://play.google.com/store/apps/details?id=com.robtopx.geometryjump", 0, 0, SW_SHOW);
 	}
 	void AppStoreLink(CCObject *sender){
 		ShellExecute(0, 0, "https://apps.apple.com/app/geometry-dash/id625334537", 0, 0, SW_SHOW);
 	}
 
+	bool profile(){
+		if (!_init(this)) return false;
+
+		CCSprite* ToolsPageSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
+
+		ToolsPageSprite->setColor({0x42, 0x41, 0x41});
+
+		gd::CCMenuItemSpriteExtra *ToolsPage = CCMenuItemSpriteExtra::create(
+		    ToolsPageSprite,
+		    this,
+		    menu_selector(MainLayer::errorNotImplemented)
+		);
+
+		CCMenu* ToolsPageMenu = CCMenu::create();
+		ToolsPageMenu->addChild(ToolsPage);
+		ToolsPageMenu->setPosition(ccp(95, -7));
+		ToolsPageMenu->setScale(.8f);
+
+		addChild(ToosPageMenu);
+
+		return true;
+	}
+
 	bool inithook() {
+		
 		if (!_init(this)) return false;
 
 		CCSprite* AppStoreGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gkBtn_001.png");
@@ -119,7 +144,14 @@ void inject() {
 	MH_CreateHook(
 	    reinterpret_cast<void*>(base + MenuLayerOffset),
 		reinterpret_cast<void*>(extract(&MainLayer::inithook)),
-	    reinterpret_cast<void**>(&MainLayer::_init));
+	    reinterpret_cast<void**>(&MainLayer::_initA)
+	);
+
+	MH_CreateHook(
+	    reinterpret_cast<void*>(base + ProfilePageOffset),
+		reinterpret_cast<void*>(extract(&MainLayer::profile)),
+	    reinterpret_cast<void**>(&MainLayer::_initB)
+	);
 
 	MH_EnableHook(MH_ALL_HOOKS);
 	#endif
