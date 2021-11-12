@@ -136,7 +136,7 @@ bool ToolsLayer::init() {
     CCMenu* SetAsSModMenu = CCMenu::create();
     CCMenu* UsernameMenu = CCMenu::create();
     CCMenu* EMailMenu = CCMenu::create();
-    CCMenu* PasswordMenu = CCMenu::create()
+    CCMenu* PasswordMenu = CCMenu::create();
     CCMenu* UnmodMenu = CCMenu::create();
 
     ReuploadSongMenu->addChild(ReuploadSong);
@@ -171,7 +171,7 @@ bool ToolsLayer::init() {
     ToolButtonsMenu->addChild(ReuploadSongMenu);
     ToolButtonsMenu->addChild(SetAsEModMenu);
     ToolButtonsMenu->addChild(SetAsSModMenu);
-    ToolButtonsMenu->addChild(UsernamMenu);
+    ToolButtonsMenu->addChild(UsernameMenu);
     ToolButtonsMenu->addChild(EMailMenu);
     ToolButtonsMenu->addChild(PasswordMenu);
     ToolButtonsMenu->addChild(UnmodMenu);
