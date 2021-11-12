@@ -10,6 +10,6 @@ protected:
 public:
     static ToolsLayer* create();
     void switchToCustomLayerButton(CCObject*);
-    ToolsLayer::errorNotImplemented(CCObject* sender);
-    ToolsLayer::errorPermissionDenied(CCObject* sender);
+    void ToolsLayer::errorNotImplemented(CCObject* sender);
+    void ToolsLayer::errorPermissionDenied(CCObject* sender);
 };
