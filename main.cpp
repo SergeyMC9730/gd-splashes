@@ -18,7 +18,7 @@ class $implement(ProfilePage, ProfilePageLayer){
 	}
 
 	bool profile(){
-		if (!_init(this)) return false;
+		if (!_init(this, this->m_nAccountID, true)) return false;
 
 		CCSprite* ToolsPageSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
 
@@ -140,6 +140,7 @@ class $implement(MenuLayer, MainLayer) {
 
 		menuIcons->addChild(AppStoreGamesMenu);
 		menuIcons->addChild(youtubeTrailerMenu);
+		menuIcons->addChild(youtubeTrailer22Menu);
 		menuIcons->addChild(GooglePlusMenu);
 		menuIcons->addChild(GooglePlayGamesMenu);
 
