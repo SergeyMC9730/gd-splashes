@@ -9,6 +9,7 @@
 #include "main.hpp"
 
 class $implement(ProfilePage, ProfilePageLayer){
+ public:
 	static inline bool (__thiscall* _init)(ProfilePage* self);
 
 	void errorNotImplemented(CCObject* sender){
@@ -26,7 +27,7 @@ class $implement(ProfilePage, ProfilePageLayer){
 		gd::CCMenuItemSpriteExtra *ToolsPage = CCMenuItemSpriteExtra::create(
 		    ToolsPageSprite,
 		    this,
-		    menu_selector(MainLayer::errorNotImplemented)
+		    menu_selector(ProfilePageLayer::errorNotImplemented)
 		);
 
 		CCMenu* ToolsPageMenu = CCMenu::create();
@@ -38,7 +39,7 @@ class $implement(ProfilePage, ProfilePageLayer){
 
 		return true;
 	}
-}
+};
 class $implement(MenuLayer, MainLayer) {
  public:
 	static inline bool (__thiscall* _init)(MenuLayer* self);
