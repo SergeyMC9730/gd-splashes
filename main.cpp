@@ -42,15 +42,17 @@ class $implement(MenuLayer, MainLayer) {
 
 		addChild(test);
 
-		auto menu = CCMenu::create();
+		auto splashMenu = CCMenu::create();
 		menu->addChild(splashOptions);
 		menu->setPosition(ccp(145, 45));
 
-		auto menu2 = CCMenu::create();
+		auto youtubeTrailerMenu = CCMenu::create();
 		menu->addChild(YouTubeTrailer);
 		menu->setPosition(ccp(427, 45));
 
-		addChild(menu);
+		addChild(splashMenu);
+		addChild(youtubeTrailerMenu);
+
 		return true;
 	}
 
