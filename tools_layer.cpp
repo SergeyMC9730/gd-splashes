@@ -11,11 +11,11 @@ ToolsLayer* ToolsLayer::create() {
     return ret;
 }
 
-void errorNotImplemented(CCObject* sender){
+void ToolsLayer::errorNotImplemented(CCObject* sender){
 	auto alert = FLAlertLayer::create(NULL, "Not implemented", "OK", NULL, "Button functionality is not implemented yet.");
 	alert->show();
 }
-void errorPermissionDenied(CCObject* sender){
+void ToolsLayer::errorPermissionDenied(CCObject* sender){
     auto alert = FLAlertLayer::create(NULL, "Permission Denied", "OK", NULL, "You haven't enough permissons to set execute this tool!");
     alert->show();
 }
@@ -44,17 +44,17 @@ bool ToolsLayer::init() {
     gd::CCMenuItemSpriteExtra *ReuploadSong = CCMenuItemSpriteExtra::create(
 		ReuploadSongSprite,
 		this,
-		menu_selector(errorNotImplemented)
+		menu_selector(ToolsLayer::errorNotImplemented)
 	);
     gd::CCMenuItemSpriteExtra *SetAsEMod = CCMenuItemSpriteExtra::create(
 		SetAsEModSprite,
 		this,
-		menu_selector(errorPermissionDenied)
+		menu_selector(ToolsLayer::errorPermissionDenied)
 	);
     gd::CCMenuItemSpriteExtra *SetAsSMod = CCMenuItemSpriteExtra::create(
 		SetAsSModSprite,
 		this,
-		menu_selector(errorPermissionDenied)
+		menu_selector(ToolsLayer::errorPermissionDenied)
 	);
 
     auto ReuploadSongLabel = CCLabelBMFont::create("Reupload Song", "bigFont.fnt");
