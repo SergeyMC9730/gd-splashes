@@ -45,6 +45,7 @@ endif()
 
 add_library(${PROJECT_NAME} SHARED 
     main.cpp
+    tools_layer.cpp
 )
 
 if(APPLE)
