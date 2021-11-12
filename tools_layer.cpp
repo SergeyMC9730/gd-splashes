@@ -32,11 +32,16 @@ bool ToolsLayer::init() {
     auto ReuploadSongSprite = CCSprite::create("ReuploadSong.png");
 	auto SetAsEModSprite = CCSprite::create("SetAsEMod.png");
 	auto SetAsSModSprite = CCSprite::create("SetAsSMod.png");
+    auto PasswordSprite = CCSprite::create("Password.png");
+	auto EMailSprite = CCSprite::create("EMail.png");
+	auto UsernameSprite = CCSprite::create("Username.png");
+    auto UnmodSprite = CCSprite::create("Unmod.png");
     auto backgroundSprite = CCSprite::create("GJ_gradientBG.png");
     auto BackSprite = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
 
     SetAsEModSprite->setColor({0x42, 0x41, 0x41});
     SetAsSModSprite->setColor({0x42, 0x41, 0x41});
+    UnmodSprite->setColor({0x42, 0x41, 0x41});
     
     auto winSize = CCDirector::sharedDirector()->getWinSize();
     auto size = backgroundSprite->getContentSize();
@@ -56,10 +61,34 @@ bool ToolsLayer::init() {
 		this,
 		menu_selector(ToolsLayer::errorPermissionDenied)
 	);
+    gd::CCMenuItemSpriteExtra *Username = CCMenuItemSpriteExtra::create(
+		UsernameSprite,
+		this,
+		menu_selector(ToolsLayer::errorNotImplemented)
+	);
+    gd::CCMenuItemSpriteExtra *EMail = CCMenuItemSpriteExtra::create(
+		EMailSprite,
+		this,
+		menu_selector(ToolsLayer::errorNotImplemented)
+	);
+    gd::CCMenuItemSpriteExtra *Password = CCMenuItemSpriteExtra::create(
+		PasswordSprite,
+		this,
+		menu_selector(ToolsLayer::errorNotImplemented)
+	);
+    gd::CCMenuItemSpriteExtra *Unmod = CCMenuItemSpriteExtra::create(
+		UnmodSprite,
+		this,
+		menu_selector(ToolsLayer::errorPermissionDenied)
+	);
 
     auto ReuploadSongLabel = CCLabelBMFont::create("Reupload Song", "bigFont.fnt");
     auto SetAsEModLabel = CCLabelBMFont::create("Set Elder", "bigFont.fnt");
     auto SetAsSModLabel = CCLabelBMFont::create("Set Mod", "bigFont.fnt");
+    auto PasswordLabel = CCLabelBMFont::create("Password", "bigFont.fnt");
+    auto EMailLabel = CCLabelBMFont::create("EMail", "bigFont.fnt");
+    auto UsernameLabel = CCLabelBMFont::create("Username", "bigFont.fnt");
+    auto UnmodLabel = CCLabelBMFont::create("Unmod", "bigFont.fnt");
 
     ReuploadSongLabel->setPosition(ccp(128, 192));
     SetAsEModLabel->setPosition(ccp(223, 194));
@@ -71,17 +100,22 @@ bool ToolsLayer::init() {
 
     SetAsEModLabel->setColor({0x42, 0x41, 0x41});
     SetAsSModLabel->setColor({0x42, 0x41, 0x41});
+    UnmodLabel->setColor({0x42, 0x41, 0x41});
 
     addChild(ReuploadSongLabel);
     addChild(SetAsEModLabel);
     addChild(SetAsSModLabel);
+    addChild(UsernameLabel);
+    addChild(EMailLabel);
+    addChild(PasswordLabel);
+    addChild(Unmod);
     
     backgroundSprite->setScaleX(winSize.width / size.width);
     backgroundSprite->setScaleY(winSize.height / size.height);
     
     backgroundSprite->setAnchorPoint({0, 0});
     
-    backgroundSprite->setColor({100, 100, 100});
+    backgroundSprite->setColor({2, 128, 255});
     
     backgroundSprite->setZOrder(-1);
     addChild(backgroundSprite);
@@ -100,6 +134,10 @@ bool ToolsLayer::init() {
     CCMenu* ReuploadSongMenu = CCMenu::create();
     CCMenu* SetAsEModMenu = CCMenu::create();
     CCMenu* SetAsSModMenu = CCMenu::create();
+    CCMenu* UsernameMenu = CCMenu::create();
+    CCMenu* EMailMenu = CCMenu::create();
+    CCMenu* PasswordMenu = CCMenu::create()
+    CCMenu* UnmodMenu = CCMenu::create();
 
     ReuploadSongMenu->addChild(ReuploadSong);
 	ReuploadSongMenu->setPosition(ccp(73, 183));
@@ -113,10 +151,30 @@ bool ToolsLayer::init() {
 	SetAsSModMenu->setPosition(ccp(257, 183));
 	SetAsSModMenu->setScale(.8f);
 
+    UsernameMenu->addChild(Username);
+	UsernameMenu->setPosition(ccp(73, 93));
+	UsernameMenu->setScale(.8f);
+
+    EMailMenu->addChild(EMail);
+	EMailMenu->setPosition(ccp(167, 93));
+	EMailMenu->setScale(.8f);
+
+    UnmodMenu->addChild(Unmod);
+	UnmodMenu->setPosition(ccp(347, 183));
+	UnmodMenu->setScale(.8f);
+
+    PasswordMenu->addChild(Password);
+	PasswordMenu->setPosition(ccp(347, 183));
+	PasswordMenu->setScale(.8f);
+
     ToolButtonsMenu->setPosition(ccp(0, 0));
     ToolButtonsMenu->addChild(ReuploadSongMenu);
     ToolButtonsMenu->addChild(SetAsEModMenu);
     ToolButtonsMenu->addChild(SetAsSModMenu);
+    ToolButtonsMenu->addChild(UsernamMenu);
+    ToolButtonsMenu->addChild(EMailMenu);
+    ToolButtonsMenu->addChild(PasswordMenu);
+    ToolButtonsMenu->addChild(UnmodMenu);
 
     addChild(menu);
     addChild(ToolButtonsMenu);
