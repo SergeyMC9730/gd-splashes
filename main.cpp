@@ -19,6 +19,8 @@ class $implement(MenuLayer, MainLayer) {
 	bool inithook() {
 		if (!_init(this)) return false;
 
+		auto buttonSprite = CCSprite::createWithSpriteFrameName("GJ_gkBtn_001.png");
+
 		auto button = CCMenuItemSpriteExtra::create(
 		    buttonSprite,
 		    this,
