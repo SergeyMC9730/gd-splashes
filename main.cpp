@@ -169,7 +169,7 @@ void inject() {
 	MH_CreateHook(
 	    reinterpret_cast<void*(__fastcall*)(int, bool)>(base + ProfilePageOffset),
 		reinterpret_cast<void*>(extract(&ProfilePageLayer::profile)),
-	    reinterpret_cast<void**(int, bool)>(&ProfilePageLayer::_init)
+	    reinterpret_cast<void**>(&ProfilePageLayer::_init)
 	);
 
 	MH_EnableHook(MH_ALL_HOOKS);
