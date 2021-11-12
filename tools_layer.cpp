@@ -61,13 +61,16 @@ bool ToolsLayer::init() {
     auto SetAsEModLabel = CCLabelBMFont::create("Set Elder", "bigFont.fnt");
     auto SetAsSModLabel = CCLabelBMFont::create("Set Mod", "bigFont.fnt");
 
-    ReuploadSongLabel->setPosition(ccp(72, 161));
-    SetAsEModLabel->setPosition(ccp(166, 162));
-    SetAsSModLabel->setPosition(ccp(256, 163));
+    ReuploadSongLabel->setPosition(ccp(128, 192));
+    SetAsEModLabel->setPosition(ccp(223, 194));
+    SetAsSModLabel->setPosition(ccp(313, 195));
 
     ReuploadSongLabel->setScale(.25f);
     SetAsEModLabel->setScale(.35f);
     SetAsSModLabel->setScale(.425f);
+
+    SetAsEModLabel->setColor({0x42, 0x41, 0x41});
+    SetAsSModLabel->setColor({0x42, 0x41, 0x41});
 
     addChild(ReuploadSongLabel);
     addChild(SetAsEModLabel);
