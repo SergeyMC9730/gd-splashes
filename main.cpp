@@ -70,14 +70,14 @@ class $implement(MenuLayer, MainLayer) {
 		youtubeTrailerMenu->setScale(.8f);
 
 		CCMenu* GooglePlusMenu = CCMenu::create();
-		AppStoreGamesMenu->addChild(GooglePlus);
-		AppStoreGamesMenu->setPosition(ccp(114, 26));
-		AppStoreGamesMenu->setScale(.8f);
+		GooglePlusMenu->addChild(GooglePlus);
+		GooglePlusMenu->setPosition(ccp(114, 26));
+		GooglePlusMenu->setScale(.8f);
 
 		CCMenu* GooglePlayGamesMenu = CCMenu::create();
-		youtubeTrailerMenu->addChild(GooglePlayGames);
-		youtubeTrailerMenu->setPosition(ccp(442, 59));
-		youtubeTrailerMenu->setScale(.8f);
+		GooglePlayGamesMenu->addChild(GooglePlayGames);
+		GooglePlayGamesMenu->setPosition(ccp(442, 59));
+		GooglePlayGamesMenu->setScale(.8f);
 
 		menuIcons->addChild(AppStoreGamesMenu);
 		menuIcons->addChild(youtubeTrailerMenu);
