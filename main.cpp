@@ -19,25 +19,36 @@ class $implement(MenuLayer, MainLayer) {
 	bool inithook() {
 		if (!_init(this)) return false;
 
-		auto buttonSprite = CCSprite::createWithSpriteFrameName("GJ_gkBtn_001.png");
+		auto splashOptionsSprite  = CCSprite::createWithSpriteFrameName("GJ_gkBtn_001.png");
+		auto YouTubeTrailerSprite = CCSprite::createWithSpriteFrameName("GJ_trailerBtn_001.png");
 
-		auto button = CCMenuItemSpriteExtra::create(
-		    buttonSprite,
+		auto splashOptions = CCMenuItemSpriteExtra::create(
+		    splashOptionsSprite,
+		    this,
+		    menu_selector(MainLayer::buttonCallback)
+		);
+
+		auto YouTubeTrailer = CCMenuItemSpriteExtra::create(
+		    YouTubeTrailerSprite,
 		    this,
 		    menu_selector(MainLayer::buttonCallback)
 		);
 
 		auto test = CCLabelBMFont::create("Splash", "bigFont.fnt");
 
-    	test->setPosition({200, 100});
-    	test->setRotation(45);
+    	test->setPosition({436, 253});
+    	test->setRotation(11);
 		test->setZOrder(2);
 
 		addChild(test);
 
 		auto menu = CCMenu::create();
-		menu->addChild(button);
-		menu->setPosition(ccp(135, 44));
+		menu->addChild(splashOptions);
+		menu->setPosition(ccp(145, 45));
+
+		auto menu2 = CCMenu::create();
+		menu->addChild(YouTubeTrailer);
+		menu->setPosition(ccp(427, 45));
 
 		addChild(menu);
 		return true;
