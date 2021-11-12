@@ -132,7 +132,7 @@ class $implement(MenuLayer, MainLayer) {
 		youtubeTrailerMenu->setScale(.8f);
 
 		CCMenu* youtubeTrailer22Menu = CCMenu::create();
-		YouTubeTrailer22Menu->addChild(CircleSprite);
+		youtubeTrailer22Menu->addChild(CircleSprite);
 		youtubeTrailer22Menu->addChild(YouTubeTrailer22);
 		youtubeTrailer22Menu->setPosition(ccp(410, -7));
 		youtubeTrailer22Menu->setScale(.8f);
