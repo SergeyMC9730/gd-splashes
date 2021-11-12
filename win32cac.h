@@ -2,7 +2,11 @@
 //this code is so fucking ugly please if you can format it
 
 #define WIN32_LEAN_AND_MEAN
+#ifndef LINUX
 #include <windows.h>
+#else
+#include <wine/wine/windows/windows.h>
+#endif
 
 #pragma warning(push, 0)
 #include "cocos-headers/cocos2dx/include/cocos2d.h"

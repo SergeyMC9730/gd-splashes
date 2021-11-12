@@ -1,4 +1,4 @@
-#define CAC_PROJ_NAME "Template"
+#define CAC_PROJ_NAME "GDSplashes"
 
 #if __APPLE__
 	#include <CacKit>
@@ -7,7 +7,7 @@
 	#include "win32cac.h"
 #endif
 
-class $implement(MenuLayer, MyMenuLayer) {
+class $implement(MenuLayer, MainLayer) {
  public:
 	static inline bool (__thiscall* _init)(MenuLayer* self);
 
@@ -19,22 +19,22 @@ class $implement(MenuLayer, MyMenuLayer) {
 	bool inithook() {
 		if (!_init(this)) return false;
 
-		auto sprite = CCSprite::create("dialogIcon_017.png");
-		auto buttonSprite = CCSprite::createWithSpriteFrameName("GJ_stopEditorBtn_001.png");
-
-		sprite->setPosition({100, 100});
-		sprite->setScale(0.5f);
-
-		addChild(sprite);
-
 		auto button = CCMenuItemSpriteExtra::create(
 		    buttonSprite,
 		    this,
 		    menu_selector(MyMenuLayer::buttonCallback));
 
+		auto test = CCLabelBMFont::create("Hello world!", "bigFont.fnt");
+
+    	test->setPosition({200, 100});
+    	test->setRotation(45);
+
+		addChild(label);
+		
+
 		auto menu = CCMenu::create();
 		menu->addChild(button);
-		menu->setPosition(ccp(150, 100));
+		menu->setPosition(ccp(135, 44));
 
 		addChild(menu);
 		return true;
@@ -48,11 +48,11 @@ class $implement(MenuLayer, MyMenuLayer) {
 void inject() {
 	#if _WIN32
 	auto base = reinterpret_cast<uintptr_t>(GetModuleHandle(0));
-	
+
 	MH_CreateHook(
 	    reinterpret_cast<void*>(base + 0x1907b0),
-		reinterpret_cast<void*>(extract(&MyMenuLayer::inithook)),
-	    reinterpret_cast<void**>(&MyMenuLayer::_init));
+		reinterpret_cast<void*>(extract(&MainLayer::inithook)),
+	    reinterpret_cast<void**>(&MainLayer::_init));
 
 	MH_EnableHook(MH_ALL_HOOKS);
 	#endif

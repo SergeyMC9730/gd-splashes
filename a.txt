@@ -1,0 +1,9 @@
+./var/snap/docker/common/var-lib-docker/overlay2/c9bfaa1c3243a045e39758b7397dbdb8c71037c241f2aa1d9f17b21282ab8421/diff/opt/msvc/kits/10/include/10.0.19041.0/um/windows.h
+./usr/include/wine-development/wine/windows/windows.h
+./usr/include/wine/wine/windows/windows.h
+./usr/i686-w64-mingw32/include/windows.h
+./usr/share/mingw-w64/include/windows.h
+./usr/x86_64-w64-mingw32/include/windows.h
+./media/k/UBUNTU 20_0/СОФТ/Windows/tcc-0.9.26-win64-bin/tcc/include/winapi/windows.h
+./media/k/UBUNTU 20_0/СОФТ/Windows/tcc-0.9.27-win64-bin/tcc/include/winapi/windows.h
+^C
