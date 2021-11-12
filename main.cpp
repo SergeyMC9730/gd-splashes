@@ -8,32 +8,16 @@
 #endif
 #include "main.hpp"
 
-class $implement(MenuLayer, MainLayer) {
- public:
-	static inline bool (__thiscall* _initA)(MenuLayer* self);
-	static inline bool (__thiscall* _initB)(ProfilePage* self);
+class $implement(ProfilePage, ProfilePageLayer){
+	static inline bool (__thiscall* _init)(ProfilePage* self);
 
-	void errorClosed(CCObject* sender){
-		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Google+ is currently closed by Google.");
-		alert->show();
-	}
 	void errorNotImplemented(CCObject* sender){
 		auto alert = FLAlertLayer::create(NULL, "Not implemented", "OK", NULL, "Tools Page is not implemented yet.");
 		alert->show();
 	}
-	
-	void youtubeTrailerLink(CCObject *sender){
-		ShellExecute(0, 0, "https://www.youtube.com/watch?v=k90y6PIzIaE", 0, 0, SW_SHOW);
-	}
-	void GooglePlayGamesLink(CCObject *sender){
-		ShellExecute(0, 0, "https://play.google.com/store/apps/details?id=com.robtopx.geometryjump", 0, 0, SW_SHOW);
-	}
-	void AppStoreLink(CCObject *sender){
-		ShellExecute(0, 0, "https://apps.apple.com/app/geometry-dash/id625334537", 0, 0, SW_SHOW);
-	}
 
 	bool profile(){
-		if (!_initB(this)) return false;
+		if (!_init(this)) return false;
 
 		CCSprite* ToolsPageSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
 
@@ -54,10 +38,33 @@ class $implement(MenuLayer, MainLayer) {
 
 		return true;
 	}
+}
+class $implement(MenuLayer, MainLayer) {
+ public:
+	static inline bool (__thiscall* _init)(MenuLayer* self);
+
+	void errorClosed(CCObject* sender){
+		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Google+ is currently closed by Google.");
+		alert->show();
+	}
+	void errorNotImplemented(CCObject* sender){
+		auto alert = FLAlertLayer::create(NULL, "Not implemented", "OK", NULL, "Tools Page is not implemented yet.");
+		alert->show();
+	}
+	
+	void youtubeTrailerLink(CCObject *sender){
+		ShellExecute(0, 0, "https://www.youtube.com/watch?v=k90y6PIzIaE", 0, 0, SW_SHOW);
+	}
+	void GooglePlayGamesLink(CCObject *sender){
+		ShellExecute(0, 0, "https://play.google.com/store/apps/details?id=com.robtopx.geometryjump", 0, 0, SW_SHOW);
+	}
+	void AppStoreLink(CCObject *sender){
+		ShellExecute(0, 0, "https://apps.apple.com/app/geometry-dash/id625334537", 0, 0, SW_SHOW);
+	}
 
 	bool inithook() {
 		
-		if (!_initA(this)) return false;
+		if (!_init(this)) return false;
 
 		CCSprite* AppStoreGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gkBtn_001.png");
 		CCSprite* YouTubeTrailerSprite = CCSprite::createWithSpriteFrameName("GJ_trailerBtn_001.png");
@@ -144,13 +151,13 @@ void inject() {
 	MH_CreateHook(
 	    reinterpret_cast<void*>(base + MenuLayerOffset),
 		reinterpret_cast<void*>(extract(&MainLayer::inithook)),
-	    reinterpret_cast<void**>(&MainLayer::_initA)
+	    reinterpret_cast<void**>(&MainLayer::_init)
 	);
 
 	MH_CreateHook(
 	    reinterpret_cast<void*>(base + ProfilePageOffset),
-		reinterpret_cast<void*>(extract(&MainLayer::profile)),
-	    reinterpret_cast<void**>(&MainLayer::_initB)
+		reinterpret_cast<void*>(extract(&ProfilePageLayer::profile)),
+	    reinterpret_cast<void**>(&ProfilePageLayer::_init)
 	);
 
 	MH_EnableHook(MH_ALL_HOOKS);
