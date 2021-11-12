@@ -6,6 +6,7 @@
 #else
 	#include "win32cac.h"
 #endif
+#include "main.hpp"
 
 class $implement(MenuLayer, MainLayer) {
  public:
@@ -42,6 +43,8 @@ class $implement(MenuLayer, MainLayer) {
 
 		addChild(test);
 
+		auto menuIcons = CCMenu::create();
+
 		auto splashMenu = CCMenu::create();
 		splashMenu->addChild(splashOptions);
 		splashMenu->setPosition(ccp(145, 45));
@@ -50,8 +53,10 @@ class $implement(MenuLayer, MainLayer) {
 		youtubeTrailerMenu->addChild(YouTubeTrailer);
 		youtubeTrailerMenu->setPosition(ccp(427, 45));
 
-		addChild(splashMenu);
-		addChild(youtubeTrailerMenu);
+		menuIcons->addChild(splashMenu);
+		menuIcons->addChild(youtubeTrailerMenu);
+
+		addChild(menuIcons);
 
 		return true;
 	}
@@ -66,7 +71,7 @@ void inject() {
 	auto base = reinterpret_cast<uintptr_t>(GetModuleHandle(0));
 
 	MH_CreateHook(
-	    reinterpret_cast<void*>(base + 0x1907b0),
+	    reinterpret_cast<void*>(base + MenuLayerOffset),
 		reinterpret_cast<void*>(extract(&MainLayer::inithook)),
 	    reinterpret_cast<void**>(&MainLayer::_init));
 
