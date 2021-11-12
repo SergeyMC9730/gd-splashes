@@ -11,7 +11,7 @@ class $implement(MenuLayer, MainLayer) {
  public:
 	static inline bool (__thiscall* _init)(MenuLayer* self);
 
-	void buttonCallback(CCObject* sender) {
+	static void buttonCallback(CCObject* sender) {
 		auto alert = FLAlertLayer::create(NULL, "Mod", "Ok", NULL, "<cg>custom button!</c>");
 		alert->show();
 	}
@@ -24,15 +24,16 @@ class $implement(MenuLayer, MainLayer) {
 		auto button = CCMenuItemSpriteExtra::create(
 		    buttonSprite,
 		    this,
-		    menu_selector(MyMenuLayer::buttonCallback));
+		    menu_selector(MainLayer::buttonCallback)
+		);
 
-		auto test = CCLabelBMFont::create("Hello world!", "bigFont.fnt");
+		auto test = CCLabelBMFont::create("Splash", "bigFont.fnt");
 
     	test->setPosition({200, 100});
     	test->setRotation(45);
+		test->setZOrder(2);
 
-		addChild(label);
-		
+		addChild(test);
 
 		auto menu = CCMenu::create();
 		menu->addChild(button);
