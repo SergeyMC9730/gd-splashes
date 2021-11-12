@@ -22,13 +22,13 @@ class $implement(MenuLayer, MainLayer) {
 	}
 	
 	void youtubeTrailerLink(CCObject *sender){
-		ShellExecute(0, 0, L"https://www.youtube.com/watch?v=k90y6PIzIaE", 0, 0, SW_SHOW);
+		ShellExecute(0, 0, "https://www.youtube.com/watch?v=k90y6PIzIaE", 0, 0, SW_SHOW);
 	}
 	void GooglePlayGamesLink(CCObject *sender){
-		ShellExecute(0, 0, L"https://play.google.com/store/apps/details?id=com.robtopx.geometryjump&hl=ru&gl=US", 0, 0, SW_SHOW);
+		ShellExecute(0, 0, "https://play.google.com/store/apps/details?id=com.robtopx.geometryjump&hl=ru&gl=US", 0, 0, SW_SHOW);
 	}
 	void AppStoreLink(CCObject *sender){
-		ShellExecute(0, 0, L"https://apps.apple.com/app/geometry-dash/id625334537", 0, 0, SW_SHOW);
+		ShellExecute(0, 0, "https://apps.apple.com/app/geometry-dash/id625334537", 0, 0, SW_SHOW);
 	}
 
 	bool inithook() {
