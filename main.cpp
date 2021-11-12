@@ -20,22 +20,36 @@ class $implement(MenuLayer, MainLayer) {
 	bool inithook() {
 		if (!_init(this)) return false;
 
-		auto splashOptionsSprite  = CCSprite::createWithSpriteFrameName("GJ_gkBtn_001.png");
-		auto YouTubeTrailerSprite = CCSprite::createWithSpriteFrameName("GJ_trailerBtn_001.png");
+		CCSprite* AppStoreGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gkBtn_001.png");
+		CCSprite* YouTubeTrailerSprite = CCSprite::createWithSpriteFrameName("GJ_trailerBtn_001.png");
+		CCSprite* GooglePlusSprite  = CCSprite::createWithSpriteFrameName("GJ_gpBtn_001.png");
+		CCSprite* GooglePlayGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gpgBtn_001.png");
 
-		auto splashOptions = CCMenuItemSpriteExtra::create(
-		    splashOptionsSprite,
+		gd::CCMenuItemSpriteExtra *AppStoreGames = CCMenuItemSpriteExtra::create(
+		    AppStoreGamesSprite,
 		    this,
 		    menu_selector(MainLayer::buttonCallback)
 		);
 
-		auto YouTubeTrailer = CCMenuItemSpriteExtra::create(
+		gd::CCMenuItemSpriteExtra *YouTubeTrailer = CCMenuItemSpriteExtra::create(
 		    YouTubeTrailerSprite,
 		    this,
 		    menu_selector(MainLayer::buttonCallback)
 		);
 
-		auto test = CCLabelBMFont::create("Splash", "bigFont.fnt");
+		gd::CCMenuItemSpriteExtra *GooglePlus = CCMenuItemSpriteExtra::create(
+		    GooglePlusSprite,
+		    this,
+		    menu_selector(MainLayer::buttonCallback)
+		);
+
+		gd::CCMenuItemSpriteExtra *GooglePlayGames = CCMenuItemSpriteExtra::create(
+		    GooglePlayGamesSprite,
+		    this,
+		    menu_selector(MainLayer::buttonCallback)
+		);
+
+		CCLabelBMFont * test = CCLabelBMFont::create("Splash", "bigFont.fnt");
 
     	test->setPosition({436, 253});
     	test->setRotation(11);
@@ -43,18 +57,34 @@ class $implement(MenuLayer, MainLayer) {
 
 		addChild(test);
 
-		auto menuIcons = CCMenu::create();
+		CCMenu* menuIcons = CCMenu::create();
 
-		auto splashMenu = CCMenu::create();
-		splashMenu->addChild(splashOptions);
-		splashMenu->setPosition(ccp(145, 45));
+		CCMenu* AppStoreGamesMenu = CCMenu::create();
+		AppStoreGamesMenu->addChild(AppStoreGames);
+		AppStoreGamesMenu->setPosition(ccp(114, 16));
+		AppStoreGamesMenu->setScale(.8f);
 
-		auto youtubeTrailerMenu = CCMenu::create();
+		CCMenu* youtubeTrailerMenu = CCMenu::create();
 		youtubeTrailerMenu->addChild(YouTubeTrailer);
-		youtubeTrailerMenu->setPosition(ccp(427, 45));
+		youtubeTrailerMenu->setPosition(ccp(442, 49));
+		youtubeTrailerMenu->setScale(.8f);
 
-		menuIcons->addChild(splashMenu);
+		CCMenu* GooglePlusMenu = CCMenu::create();
+		AppStoreGamesMenu->addChild(GooglePlus);
+		AppStoreGamesMenu->setPosition(ccp(114, 26));
+		AppStoreGamesMenu->setScale(.8f);
+
+		CCMenu* GooglePlayGamesMenu = CCMenu::create();
+		youtubeTrailerMenu->addChild(GooglePlayGames);
+		youtubeTrailerMenu->setPosition(ccp(442, 59));
+		youtubeTrailerMenu->setScale(.8f);
+
+		menuIcons->addChild(AppStoreGamesMenu);
 		menuIcons->addChild(youtubeTrailerMenu);
+		menuIcons->addChild(GooglePlusMenu);
+		menuIcons->addChild(GooglePlayGamesMenu);
+
+		menuIcons->setPosition(ccp(0, 0));
 
 		addChild(menuIcons);
 
