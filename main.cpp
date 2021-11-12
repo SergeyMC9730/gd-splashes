@@ -48,6 +48,10 @@ class $implement(MenuLayer, MainLayer) {
 		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Google+ is currently closed by Google.");
 		alert->show();
 	}
+	void errorClosedB(CCObject* sender){
+		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Everyplay is currently closed by Unity.");
+		alert->show();
+	}
 	void errorNotImplemented(CCObject* sender){
 		auto alert = FLAlertLayer::create(NULL, "Not implemented", "OK", NULL, "Tools Page is not implemented yet.");
 		alert->show();
@@ -74,12 +78,10 @@ class $implement(MenuLayer, MainLayer) {
 		CCSprite* YouTubeTrailerSprite = CCSprite::createWithSpriteFrameName("GJ_trailerBtn_001.png");
 		CCSprite* GooglePlusSprite  = CCSprite::createWithSpriteFrameName("GJ_gpBtn_001.png");
 		CCSprite* GooglePlayGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gpgBtn_001.png");
-		CCSprite* CircleSprite = CCSprite::createWithSpriteFrameName("circle.png");
-
-		CircleSprite->setPosition(ccp(58, -53));
-		CircleSprite->setScale(7.15f);
+		CCSprite* EveryplaySprite = CCSprite::createWithSpriteFrameName("GJ_gpgBtn_001.png");
 
 		GooglePlusSprite->setColor({0x42, 0x41, 0x41});
+		EveryplaySprite->setColor({0x42, 0x41, 0x41});
 
 		gd::CCMenuItemSpriteExtra *AppStoreGames = CCMenuItemSpriteExtra::create(
 		    AppStoreGamesSprite,
@@ -98,7 +100,6 @@ class $implement(MenuLayer, MainLayer) {
 		    menu_selector(MainLayer::youtubeTrailer22Link)
 		);
 
-
 		gd::CCMenuItemSpriteExtra *GooglePlus = CCMenuItemSpriteExtra::create(
 		    GooglePlusSprite,
 		    this,
@@ -109,6 +110,11 @@ class $implement(MenuLayer, MainLayer) {
 		    GooglePlayGamesSprite,
 		    this,
 		    menu_selector(MainLayer::GooglePlayGamesLink)
+		);
+		gd::CCMenuItemSpriteExtra *Everyplay = CCMenuItemSpriteExtra::create(
+		    EveryplaySprite,
+		    this,
+		    menu_selector(MainLayer::errorClosedB)
 		);
 
 		CCLabelBMFont * test = CCLabelBMFont::create("Splash", "bigFont.fnt");
@@ -132,7 +138,6 @@ class $implement(MenuLayer, MainLayer) {
 		youtubeTrailerMenu->setScale(.8f);
 
 		CCMenu* youtubeTrailer22Menu = CCMenu::create();
-		youtubeTrailer22Menu->addChild(CircleSprite);
 		youtubeTrailer22Menu->addChild(YouTubeTrailer22);
 		youtubeTrailer22Menu->setPosition(ccp(410, -7));
 		youtubeTrailer22Menu->setScale(.8f);
@@ -147,11 +152,17 @@ class $implement(MenuLayer, MainLayer) {
 		GooglePlayGamesMenu->setPosition(ccp(364, 35));
 		GooglePlayGamesMenu->setScale(.8f);
 
+		CCMenu* EveryplayMenu = CCMenu::create();
+		EveryplayMenu->addChild(Everyplay);
+		EveryplayMenu->setPosition(ccp(49, -7));
+		EveryplayMenu->setScale(.8f);
+
 		menuIcons->addChild(AppStoreGamesMenu);
 		menuIcons->addChild(youtubeTrailerMenu);
 		menuIcons->addChild(youtubeTrailer22Menu);
 		menuIcons->addChild(GooglePlusMenu);
 		menuIcons->addChild(GooglePlayGamesMenu);
+		menuIcons->addChild(EveryplayMenu);
 
 		menuIcons->setPosition(ccp(0, 0));
 
