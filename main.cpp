@@ -56,6 +56,9 @@ class $implement(MenuLayer, MainLayer) {
 	void youtubeTrailerLink(CCObject *sender){
 		ShellExecute(0, 0, "https://www.youtube.com/watch?v=k90y6PIzIaE", 0, 0, SW_SHOW);
 	}
+	void youtubeTrailer22Link(CCObject *sender){
+		ShellExecute(0, 0, "https://www.youtube.com/watch?v=ipK7vQ8gEZw", 0, 0, SW_SHOW);
+	}
 	void GooglePlayGamesLink(CCObject *sender){
 		ShellExecute(0, 0, "https://play.google.com/store/apps/details?id=com.robtopx.geometryjump", 0, 0, SW_SHOW);
 	}
@@ -71,6 +74,10 @@ class $implement(MenuLayer, MainLayer) {
 		CCSprite* YouTubeTrailerSprite = CCSprite::createWithSpriteFrameName("GJ_trailerBtn_001.png");
 		CCSprite* GooglePlusSprite  = CCSprite::createWithSpriteFrameName("GJ_gpBtn_001.png");
 		CCSprite* GooglePlayGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gpgBtn_001.png");
+		CCSprite* CircleSprite = CCSprite::createWithSpriteFrameName("circle.png");
+
+		CircleSprite->setPosition(ccp(58, -53));
+		CircleSprite->setScale(7.15f);
 
 		GooglePlusSprite->setColor({0x42, 0x41, 0x41});
 
@@ -88,8 +95,9 @@ class $implement(MenuLayer, MainLayer) {
 		gd::CCMenuItemSpriteExtra *YouTubeTrailer22 = CCMenuItemSpriteExtra::create(
 		    YouTubeTrailerSprite,
 		    this,
-		    menu_selector(MainLayer::youtubeTrailerLink)
+		    menu_selector(MainLayer::youtubeTrailer22Link)
 		);
+
 
 		gd::CCMenuItemSpriteExtra *GooglePlus = CCMenuItemSpriteExtra::create(
 		    GooglePlusSprite,
@@ -124,6 +132,7 @@ class $implement(MenuLayer, MainLayer) {
 		youtubeTrailerMenu->setScale(.8f);
 
 		CCMenu* youtubeTrailer22Menu = CCMenu::create();
+		YouTubeTrailer22Menu->addChild(CircleSprite);
 		youtubeTrailer22Menu->addChild(YouTubeTrailer22);
 		youtubeTrailer22Menu->setPosition(ccp(410, -7));
 		youtubeTrailer22Menu->setScale(.8f);
