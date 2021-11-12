@@ -11,18 +11,66 @@ ToolsLayer* ToolsLayer::create() {
     return ret;
 }
 
+void errorNotImplemented(CCObject* sender){
+	auto alert = FLAlertLayer::create(NULL, "Not implemented", "OK", NULL, "Button functionality is not implemented yet.");
+	alert->show();
+}
+void errorPermissionDenied(CCObject* sender){
+    auto alert = FLAlertLayer::create(NULL, "Permission Denied", "OK", NULL, "You haven't enough permissons to set execute this tool!");
+}
+
 bool ToolsLayer::init() {
-    auto label = CCLabelBMFont::create("Hello world!", "bigFont.fnt");
 
-    label->setPosition({200, 100});
-    label->setRotation(45);
+    auto gdps = CCLabelBMFont::create("GDPS Tools", "bigFont.fnt");
 
-    addChild(label);
+    gdps->setPosition(ccp(127, 296));
+    gdps->setScale(0.625f)
 
-    auto backgroundSprite = CCSprite::create("GJ_gradientBG.png");
+    addChild(gdps);
+
+    CCSprite* ReuploadSongSprite = CCSprite::create("ReuploadSong.png");
+	CCSprite* SetAsEModSprite = CCSprite::create("SetAsEMod.png");
+	CCSprite* SetAsSModSprite  = CCSprite::create("SetAsSMod.png");
+    CCSprite* backgroundSprite = CCSprite::create("GJ_gradientBG.png");
+    ССSprite* BackSprite = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
+
+    SetAsEModSprite->setColor({0x42, 0x41, 0x41});
+    SetAsSModSprite->setColor({0x42, 0x41, 0x41});
     
     auto winSize = CCDirector::sharedDirector()->getWinSize();
     auto size = backgroundSprite->getContentSize();
+
+    gd::CCMenuItemSpriteExtra *ReuploadSong = CCMenuItemSpriteExtra::create(
+		ReuploadSongSprite,
+		this,
+		menu_selector(errorNotImplemented)
+	);
+    gd::CCMenuItemSpriteExtra *SetAsEMod = CCMenuItemSpriteExtra::create(
+		SetAsEModSprite,
+		this,
+		menu_selector(errorPermissionDenied)
+	);
+    gd::CCMenuItemSpriteExtra *SetAsSMod = CCMenuItemSpriteExtra::create(
+		SetAsSModSprite,
+		this,
+		menu_selector(errorPermissionDenied)
+	);
+
+    auto ReuploadSongLabel = CCLabelBMFont::create("Reupload Song", "bigFont.fnt");
+    auto SetAsEModLabel = CCLabelBMFont::create("Set Elder", "bigFont.fnt");
+    auto SetAsSModLabel = CCLabelBMFont::create("Set Mod", "bigFont.fnt");
+
+    ReuploadSongLabel->setPosition(ccp(72, 161));
+    SetAsEModLabel->setPosition(ccp(166, 162));
+    SetAsSModLabel->setPosition(ccp(256, 163));
+
+    ReuploadSongLabel->setScale(.25f);
+    SetAsEModLabel->setScale(.35f);
+    SetAsSModLabel->setScale(.425f);
+
+    addChild(ReuploadSongLabel);
+    addChild(SetAsEModLabel);
+    addChild(SetAsSModLabel);
     
     backgroundSprite->setScaleX(winSize.width / size.width);
     backgroundSprite->setScaleY(winSize.height / size.height);
@@ -35,16 +83,39 @@ bool ToolsLayer::init() {
     addChild(backgroundSprite);
 
     auto button = gd::CCMenuItemSpriteExtra::create(
-        CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png"),
+        BackSprite,
         this,
         menu_selector(ToolsLayer::backButtonCallback)
     );
 
-    auto menu = CCMenu::create();
+    CCMenu* menu = CCMenu::create();
     menu->addChild(button);
     menu->setPosition({25, winSize.height - 25});
 
+    CCMenu* ToolButtonsMenu = CCMenu::create();
+    CCMenu* ReuploadSongMenu = CCMenu::create();
+    CCMenu* SetAsEModMenu = CCMenu::create();
+    CCMenu* SetAsSModMenu = CCMenu::create();
+
+    ReuploadSongMenu->addChild(ReuploadSong);
+	ReuploadSongMenu->setPosition(ccp(73, 183));
+	ReuploadSongMenu->setScale(.8f);
+
+    SetAsEModMenu->addChild(SetAsEMod);
+	SetAsEModMenu->setPosition(ccp(167, 183));
+	SetAsEModMenu->setScale(.8f);
+
+    SetAsSModMenu->addChild(SetAsSMod);
+	SetAsSModMenu->setPosition(ccp(257, 183));
+	SetAsSModMenu->setScale(.8f);
+
+    ToolButtonsMenu->setPosition(ccp(0, 0));
+    ToolButtonsMenu->addChild(ReuploadSongMenu);
+    ToolButtonsMenu->addChild(SetAsEModMenu);
+    ToolButtonsMenu->addChild(SetAsSModMenu);
+
     addChild(menu);
+    addChild(ToolButtonsMenu);
 
     setKeypadEnabled(true);
 
