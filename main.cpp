@@ -17,7 +17,7 @@ class $implement(MenuLayer, MainLayer) {
 		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Google+ is currently closed by Google.");
 		alert->show();
 	}
-	void errorNotImplemented(COCOS2D_VERSION{
+	void errorNotImplemented(CCObject* sender){
 		auto alert = FLAlertLayer::create(NULL, "Not implemented", "OK", NULL, "Tools Page is not implemented yet.");
 		alert->show();
 	}
@@ -33,7 +33,7 @@ class $implement(MenuLayer, MainLayer) {
 	}
 
 	bool profile(){
-		if (!_init(this)) return false;
+		if (!_initB(this)) return false;
 
 		CCSprite* ToolsPageSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
 
@@ -50,14 +50,14 @@ class $implement(MenuLayer, MainLayer) {
 		ToolsPageMenu->setPosition(ccp(95, -7));
 		ToolsPageMenu->setScale(.8f);
 
-		addChild(ToosPageMenu);
+		addChild(ToolsPageMenu);
 
 		return true;
 	}
 
 	bool inithook() {
 		
-		if (!_init(this)) return false;
+		if (!_initA(this)) return false;
 
 		CCSprite* AppStoreGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gkBtn_001.png");
 		CCSprite* YouTubeTrailerSprite = CCSprite::createWithSpriteFrameName("GJ_trailerBtn_001.png");
