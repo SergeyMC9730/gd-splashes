@@ -4,8 +4,10 @@
 #define WIN32_LEAN_AND_MEAN
 #ifndef LINUX
 #include <windows.h>
+#include <shellapi.h>
 #else
 #include <wine/wine/windows/windows.h>
+#include <wine/wine/windows/shellapi.h>
 #endif
 
 #pragma warning(push, 0)

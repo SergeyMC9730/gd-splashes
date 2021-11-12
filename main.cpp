@@ -20,6 +20,16 @@ class $implement(MenuLayer, MainLayer) {
 		auto alert = FLAlertLayer::create(NULL, "Closed", "Google+ is currently closed by Google.", NULL, "");
 		alert->show();
 	}
+	
+	void youtubeTrailerLink(CCObject *sender){
+		ShellExecute(0, 0, L"https://www.youtube.com/watch?v=k90y6PIzIaE", 0, 0, SW_SHOW);
+	}
+	void GooglePlayGamesLink(CCObject *sender){
+		ShellExecute(0, 0, L"https://play.google.com/store/apps/details?id=com.robtopx.geometryjump&hl=ru&gl=US", 0, 0, SW_SHOW);
+	}
+	void AppStoreLink(CCObject *sender){
+		ShellExecute(0, 0, L"https://apps.apple.com/app/geometry-dash/id625334537", 0, 0, SW_SHOW);
+	}
 
 	bool inithook() {
 		if (!_init(this)) return false;
@@ -29,30 +39,30 @@ class $implement(MenuLayer, MainLayer) {
 		CCSprite* GooglePlusSprite  = CCSprite::createWithSpriteFrameName("GJ_gpBtn_001.png");
 		CCSprite* GooglePlayGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gpgBtn_001.png");
 
-		GooglePlusSprite->setColor({0x3b, 0x3a, 0x3a});
+		GooglePlusSprite->setColor({0x42, 0x41, 0x41});
 
 		gd::CCMenuItemSpriteExtra *AppStoreGames = CCMenuItemSpriteExtra::create(
 		    AppStoreGamesSprite,
 		    this,
-		    menu_selector(MainLayer::buttonCallback)
+		    menu_selector(MainLayer::AppStoreLink)
 		);
 
 		gd::CCMenuItemSpriteExtra *YouTubeTrailer = CCMenuItemSpriteExtra::create(
 		    YouTubeTrailerSprite,
 		    this,
-		    menu_selector(MainLayer::buttonCallback)
+		    menu_selector(MainLayer::youtubeTrailerLink)
 		);
 
 		gd::CCMenuItemSpriteExtra *GooglePlus = CCMenuItemSpriteExtra::create(
 		    GooglePlusSprite,
 		    this,
-		    menu_selector(MainLayer::buttonCallback)
+		    menu_selector(MainLayer::errorClosed)
 		);
 
 		gd::CCMenuItemSpriteExtra *GooglePlayGames = CCMenuItemSpriteExtra::create(
 		    GooglePlayGamesSprite,
 		    this,
-		    menu_selector(MainLayer::buttonCallback)
+		    menu_selector(MainLayer::GooglePlayGamesLink)
 		);
 
 		CCLabelBMFont * test = CCLabelBMFont::create("Splash", "bigFont.fnt");
