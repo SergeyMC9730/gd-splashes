@@ -12,4 +12,5 @@ public:
     void switchToCustomLayerButton(CCObject*);
     void ToolsLayer::errorNotImplemented(CCObject* sender);
     void ToolsLayer::errorPermissionDenied(CCObject* sender);
+    void ToolsLayer::toiletAction(CCObject* sender);
 };

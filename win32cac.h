@@ -2,6 +2,7 @@
 //this code is so fucking ugly please if you can format it
 
 #define WIN32_LEAN_AND_MEAN
+#define NotImplemented { 0x42, 0x41, 0x41 }
 #ifndef LINUX
 #include <windows.h>
 #include <shellapi.h>

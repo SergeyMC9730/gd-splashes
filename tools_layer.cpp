@@ -19,6 +19,10 @@ void ToolsLayer::errorPermissionDenied(CCObject* sender){
     auto alert = FLAlertLayer::create(NULL, "Permission Denied", "OK", NULL, "You haven't enough permissons to set execute this tool!");
     alert->show();
 }
+void ToolsLayer::toiletAction(CCObject* sender) {
+    auto FMODSND = FMODAudioEngine::sharedEngine();
+    FMODSND->playBackgroundMusic("Resources/Tada.mp3", false, false);
+}
 
 bool ToolsLayer::init() {
 
@@ -38,14 +42,20 @@ bool ToolsLayer::init() {
     auto UnmodSprite = CCSprite::create("Unmod.png");
     auto backgroundSprite = CCSprite::create("GJ_gradientBG.png");
     auto BackSprite = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
+    auto ToiletSprite = CCSprite::create("Toilet.png");
 
-    SetAsEModSprite->setColor({0x42, 0x41, 0x41});
-    SetAsSModSprite->setColor({0x42, 0x41, 0x41});
-    UnmodSprite->setColor({0x42, 0x41, 0x41});
+    SetAsEModSprite->setColor(NotImplemented);
+    SetAsSModSprite->setColor(NotImplemented);
+    UnmodSprite->setColor(NotImplemented);
     
     auto winSize = CCDirector::sharedDirector()->getWinSize();
     auto size = backgroundSprite->getContentSize();
 
+    gd::CCMenuItemSpriteExtra* Toilet = CCMenuItemSpriteExtra::create(
+        ToiletSprite,
+        this,
+        menu_selector(ToolsLayer::toiletAction)
+    );
     gd::CCMenuItemSpriteExtra *ReuploadSong = CCMenuItemSpriteExtra::create(
 		ReuploadSongSprite,
 		this,
@@ -93,10 +103,18 @@ bool ToolsLayer::init() {
     ReuploadSongLabel->setPosition(ccp(128, 192));
     SetAsEModLabel->setPosition(ccp(223, 194));
     SetAsSModLabel->setPosition(ccp(313, 195));
+    PasswordLabel->setPosition(ccp(403, 195));
+    EMailLabel->setPosition(ccp(223, 106));
+    UsernameLabel->setPosition(ccp(128, 104));
+    UnmodLabel->setPosition(ccp(313, 107));
 
     ReuploadSongLabel->setScale(.25f);
     SetAsEModLabel->setScale(.35f);
     SetAsSModLabel->setScale(.425f);
+    PasswordLabel->setScale(.4f);
+    EMailLabel->setScale(.575f);
+    UsernameLabel->setScale(.4f);
+    UnmodLabel->setScale(.625f);
 
     SetAsEModLabel->setColor({0x42, 0x41, 0x41});
     SetAsSModLabel->setColor({0x42, 0x41, 0x41});
@@ -108,7 +126,7 @@ bool ToolsLayer::init() {
     addChild(UsernameLabel);
     addChild(EMailLabel);
     addChild(PasswordLabel);
-    addChild(Unmod);
+    addChild(UnmodLabel);
     
     backgroundSprite->setScaleX(winSize.width / size.width);
     backgroundSprite->setScaleY(winSize.height / size.height);
@@ -117,7 +135,7 @@ bool ToolsLayer::init() {
     
     backgroundSprite->setColor({2, 128, 255});
     
-    backgroundSprite->setZOrder(-1);
+    backgroundSprite->setZOrder(-2);
     addChild(backgroundSprite);
 
     auto button = gd::CCMenuItemSpriteExtra::create(
@@ -138,6 +156,7 @@ bool ToolsLayer::init() {
     CCMenu* EMailMenu = CCMenu::create();
     CCMenu* PasswordMenu = CCMenu::create();
     CCMenu* UnmodMenu = CCMenu::create();
+    CCMenu* ToiletMenu = CCMenu::create();
 
     ReuploadSongMenu->addChild(ReuploadSong);
 	ReuploadSongMenu->setPosition(ccp(73, 183));
@@ -160,12 +179,16 @@ bool ToolsLayer::init() {
 	EMailMenu->setScale(.8f);
 
     UnmodMenu->addChild(Unmod);
-	UnmodMenu->setPosition(ccp(347, 183));
+	UnmodMenu->setPosition(ccp(257, 93));
 	UnmodMenu->setScale(.8f);
 
     PasswordMenu->addChild(Password);
 	PasswordMenu->setPosition(ccp(347, 183));
 	PasswordMenu->setScale(.8f);
+
+    ToiletMenu->addChild(Toilet);
+    ToiletMenu->setPosition(ccp(444, -5));
+    ToiletMenu->setScale(.7f);
 
     ToolButtonsMenu->setPosition(ccp(0, 0));
     ToolButtonsMenu->addChild(ReuploadSongMenu);
@@ -175,6 +198,8 @@ bool ToolsLayer::init() {
     ToolButtonsMenu->addChild(EMailMenu);
     ToolButtonsMenu->addChild(PasswordMenu);
     ToolButtonsMenu->addChild(UnmodMenu);
+    ToolButtonsMenu->addChild(ToiletMenu);
+    ToolButtonsMenu->setZOrder(-1);
 
     addChild(menu);
     addChild(ToolButtonsMenu);
@@ -185,6 +210,8 @@ bool ToolsLayer::init() {
 }
 
 void ToolsLayer::keyBackClicked() {
+    auto FMODSND = FMODAudioEngine::sharedEngine();
+    FMODSND->playBackgroundMusic("Resources/menuLoop.mp3", true, false);
     CCDirector::sharedDirector()->popSceneWithTransition(0.5f, PopTransition::kPopTransitionFade);
 }
 
@@ -193,6 +220,9 @@ void ToolsLayer::backButtonCallback(CCObject* object) {
 }
 
 void ToolsLayer::switchToCustomLayerButton(CCObject* object) {
+    auto FMODSND = FMODAudioEngine::sharedEngine();
+    FMODSND->playBackgroundMusic("Resources/menuLoop.mp3", true, false);
+
     auto layer = ToolsLayer::create();
     auto scene = CCScene::create();
     scene->addChild(layer);
