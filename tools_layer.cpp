@@ -1,5 +1,8 @@
 #include "tools_layer.hpp"
 
+CCTextInputNode *t1prt;
+CCLabelBMFont *t2ptr;
+
 ToolsLayer* ToolsLayer::create() {
     auto ret = new ToolsLayer();
     if (ret && ret->init()) {
@@ -23,8 +26,13 @@ void ToolsLayer::toiletAction(CCObject* sender) {
     auto FMODSND = FMODAudioEngine::sharedEngine();
     FMODSND->playBackgroundMusic("Resources/Tada.mp3", false, false);
 }
+void ToolsLayer::test(CCObject* sender) {
+    t2ptr->setString(t1prt->getString());
+}
 
 bool ToolsLayer::init() {
+    t1prt = CCTextInputNode::create("Test", nullptr, "bigFont.fnt", 128, 64);
+    t2ptr = CCLabelBMFont::create("11", "bigFont.fnt");
 
     auto gdps = CCLabelBMFont::create("GDPS Tools", "bigFont.fnt");
 
@@ -40,6 +48,7 @@ bool ToolsLayer::init() {
 	auto EMailSprite = CCSprite::create("EMail.png");
 	auto UsernameSprite = CCSprite::create("Username.png");
     auto UnmodSprite = CCSprite::create("Unmod.png");
+    auto TestSprite = CCSprite::create("Unmod.png");
     auto backgroundSprite = CCSprite::create("GJ_gradientBG.png");
     auto BackSprite = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
     auto ToiletSprite = CCSprite::create("Toilet.png");
@@ -91,6 +100,11 @@ bool ToolsLayer::init() {
 		this,
 		menu_selector(ToolsLayer::errorPermissionDenied)
 	);
+    gd::CCMenuItemSpriteExtra* TestA = CCMenuItemSpriteExtra::create(
+        TestSprite,
+        this,
+        menu_selector(ToolsLayer::test)
+    );
 
     auto ReuploadSongLabel = CCLabelBMFont::create("Reupload Song", "bigFont.fnt");
     auto SetAsEModLabel = CCLabelBMFont::create("Set Elder", "bigFont.fnt");
@@ -107,6 +121,7 @@ bool ToolsLayer::init() {
     EMailLabel->setPosition(ccp(223, 106));
     UsernameLabel->setPosition(ccp(128, 104));
     UnmodLabel->setPosition(ccp(313, 107));
+    t2ptr->setPosition(ccp(100, 100));
 
     ReuploadSongLabel->setScale(.25f);
     SetAsEModLabel->setScale(.35f);
@@ -127,6 +142,7 @@ bool ToolsLayer::init() {
     addChild(EMailLabel);
     addChild(PasswordLabel);
     addChild(UnmodLabel);
+    addChild(t2ptr);
     
     backgroundSprite->setScaleX(winSize.width / size.width);
     backgroundSprite->setScaleY(winSize.height / size.height);
@@ -157,6 +173,7 @@ bool ToolsLayer::init() {
     CCMenu* PasswordMenu = CCMenu::create();
     CCMenu* UnmodMenu = CCMenu::create();
     CCMenu* ToiletMenu = CCMenu::create();
+    CCMenu* TestMenu = CCMenu::create();
 
     ReuploadSongMenu->addChild(ReuploadSong);
 	ReuploadSongMenu->setPosition(ccp(73, 183));
@@ -190,6 +207,10 @@ bool ToolsLayer::init() {
     ToiletMenu->setPosition(ccp(444, -5));
     ToiletMenu->setScale(.7f);
 
+    TestMenu->addChild(TestA);
+    TestMenu->setPosition(ccp(344, -5));
+    TestMenu->setScale(.7f);
+
     ToolButtonsMenu->setPosition(ccp(0, 0));
     ToolButtonsMenu->addChild(ReuploadSongMenu);
     ToolButtonsMenu->addChild(SetAsEModMenu);
@@ -199,10 +220,14 @@ bool ToolsLayer::init() {
     ToolButtonsMenu->addChild(PasswordMenu);
     ToolButtonsMenu->addChild(UnmodMenu);
     ToolButtonsMenu->addChild(ToiletMenu);
+    ToolButtonsMenu->addChild(TestMenu);
     ToolButtonsMenu->setZOrder(-1);
 
     addChild(menu);
     addChild(ToolButtonsMenu);
+
+    t1prt->setPosition(ccp(146, 38));
+    addChild(t1prt);
 
     setKeypadEnabled(true);
 

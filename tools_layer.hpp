@@ -13,4 +13,5 @@ public:
     void ToolsLayer::errorNotImplemented(CCObject* sender);
     void ToolsLayer::errorPermissionDenied(CCObject* sender);
     void ToolsLayer::toiletAction(CCObject* sender);
+    void ToolsLayer::test(CCObject* sender);
 };

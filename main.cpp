@@ -27,16 +27,16 @@ class $implement(MenuLayer, MainLayer) {
 	}
 	
 	void youtubeTrailerLink(CCObject *sender){
-		ShellExecute(0, 0, "https://www.youtube.com/watch?v=k90y6PIzIaE", 0, 0, SW_SHOW);
+		CCApplication::sharedApplication()->openURL("https://www.youtube.com/watch?v=k90y6PIzIaE");
 	}
 	void youtubeTrailer22Link(CCObject *sender){
-		ShellExecute(0, 0, "https://www.youtube.com/watch?v=ipK7vQ8gEZw", 0, 0, SW_SHOW);
+		CCApplication::sharedApplication()->openURL("https://www.youtube.com/watch?v=ipK7vQ8gEZw");
 	}
 	void GooglePlayGamesLink(CCObject *sender){
-		ShellExecute(0, 0, "https://play.google.com/store/apps/details?id=com.robtopx.geometryjump", 0, 0, SW_SHOW);
+		CCApplication::sharedApplication()->openURL("https://play.google.com/store/apps/details?id=com.robtopx.geometryjump");
 	}
 	void AppStoreLink(CCObject *sender){
-		ShellExecute(0, 0, "https://apps.apple.com/app/geometry-dash/id625334537", 0, 0, SW_SHOW);
+		CCApplication::sharedApplication()->openURL("https://apps.apple.com/app/geometry-dash/id625334537");
 	}
 
 	bool inithook() {
@@ -49,6 +49,7 @@ class $implement(MenuLayer, MainLayer) {
 		CCSprite* GooglePlayGamesSprite = CCSprite::createWithSpriteFrameName("GJ_gpgBtn_001.png");
 		CCSprite* EveryplaySprite = CCSprite::createWithSpriteFrameName("GJ_everyplayBtn_001.png");
 		CCSprite* ToolsSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
+		CCSprite* SneakPeakSprite = CCSprite::create("SneakPeek.png");
 
 		GooglePlusSprite->setColor({0x42, 0x41, 0x41});
 		EveryplaySprite->setColor({0x42, 0x41, 0x41});
@@ -65,7 +66,7 @@ class $implement(MenuLayer, MainLayer) {
 		    menu_selector(MainLayer::youtubeTrailerLink)
 		);
 		gd::CCMenuItemSpriteExtra *YouTubeTrailer22 = CCMenuItemSpriteExtra::create(
-		    YouTubeTrailerSprite,
+		    SneakPeakSprite,
 		    this,
 		    menu_selector(MainLayer::youtubeTrailer22Link)
 		);
@@ -114,8 +115,8 @@ class $implement(MenuLayer, MainLayer) {
 
 		CCMenu* youtubeTrailer22Menu = CCMenu::create();
 		youtubeTrailer22Menu->addChild(YouTubeTrailer22);
-		youtubeTrailer22Menu->setPosition(ccp(410, -7));
-		youtubeTrailer22Menu->setScale(.8f);
+		youtubeTrailer22Menu->setPosition(ccp(372, -28));
+		youtubeTrailer22Menu->setScale(.67f);
 
 		CCMenu* GooglePlusMenu = CCMenu::create();
 		GooglePlusMenu->addChild(GooglePlus);
