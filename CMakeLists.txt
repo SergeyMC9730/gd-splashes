@@ -36,6 +36,7 @@ else()
         cocos-headers/cocos2dx/platform/third_party/win32
         cocos-headers/cocos2dx/platform/third_party/win32/OGLES
         minhook/include
+        curl/include/curl
     )
     add_subdirectory(minhook EXCLUDE_FROM_ALL)
     set(CMAKE_SIZEOF_VOID_P 4)
@@ -46,6 +47,10 @@ endif()
 add_library(${PROJECT_NAME} SHARED 
     main.cpp
     tools_layer.cpp
+    net.cpp
+    debug_layer.cpp
+    splashes.cpp
+    hash.cpp
 )
 
 if(APPLE)
@@ -63,6 +68,7 @@ else()
         minhook
         "${CMAKE_SOURCE_DIR}/cocos-headers/cocos2dx/libcocos2d.lib"
         "${CMAKE_SOURCE_DIR}/cocos-headers/extensions/libExtensions.lib"
+        "${CMAKE_SOURCE_DIR}/CURL.lib"
     )
 
     install(

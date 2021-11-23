@@ -1,8 +1,5 @@
 #include "tools_layer.hpp"
 
-CCTextInputNode *t1prt;
-CCLabelBMFont *t2ptr;
-
 ToolsLayer* ToolsLayer::create() {
     auto ret = new ToolsLayer();
     if (ret && ret->init()) {
@@ -26,18 +23,12 @@ void ToolsLayer::toiletAction(CCObject* sender) {
     auto FMODSND = FMODAudioEngine::sharedEngine();
     FMODSND->playBackgroundMusic("Resources/Tada.mp3", false, false);
 }
-void ToolsLayer::test(CCObject* sender) {
-    t2ptr->setString(t1prt->getString());
-}
 
 bool ToolsLayer::init() {
-    t1prt = CCTextInputNode::create("Test", nullptr, "bigFont.fnt", 128, 64);
-    t2ptr = CCLabelBMFont::create("11", "bigFont.fnt");
+    auto gdps = CCLabelBMFont::create("GDPS Tools", "goldFont.fnt");
 
-    auto gdps = CCLabelBMFont::create("GDPS Tools", "bigFont.fnt");
-
-    gdps->setPosition(ccp(127, 296));
-    gdps->setScale(0.625f);
+    gdps->setPosition(ccp(120, 296));
+    gdps->setScale(0.775f);
 
     addChild(gdps);
 
@@ -48,17 +39,16 @@ bool ToolsLayer::init() {
 	auto EMailSprite = CCSprite::create("EMail.png");
 	auto UsernameSprite = CCSprite::create("Username.png");
     auto UnmodSprite = CCSprite::create("Unmod.png");
-    auto TestSprite = CCSprite::create("Unmod.png");
     auto backgroundSprite = CCSprite::create("GJ_gradientBG.png");
     auto BackSprite = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
     auto ToiletSprite = CCSprite::create("Toilet.png");
 
-    SetAsEModSprite->setColor(NotImplemented);
-    SetAsSModSprite->setColor(NotImplemented);
+    SetAsEModSprite->setColor(AccessDenied);
+    SetAsSModSprite->setColor(AccessDenied);
     UnmodSprite->setColor(NotImplemented);
     
     auto winSize = CCDirector::sharedDirector()->getWinSize();
-    auto size = backgroundSprite->getContentSize();
+    auto &size = backgroundSprite->getContentSize();
 
     gd::CCMenuItemSpriteExtra* Toilet = CCMenuItemSpriteExtra::create(
         ToiletSprite,
@@ -100,11 +90,6 @@ bool ToolsLayer::init() {
 		this,
 		menu_selector(ToolsLayer::errorPermissionDenied)
 	);
-    gd::CCMenuItemSpriteExtra* TestA = CCMenuItemSpriteExtra::create(
-        TestSprite,
-        this,
-        menu_selector(ToolsLayer::test)
-    );
 
     auto ReuploadSongLabel = CCLabelBMFont::create("Reupload Song", "bigFont.fnt");
     auto SetAsEModLabel = CCLabelBMFont::create("Set Elder", "bigFont.fnt");
@@ -114,35 +99,33 @@ bool ToolsLayer::init() {
     auto UsernameLabel = CCLabelBMFont::create("Username", "bigFont.fnt");
     auto UnmodLabel = CCLabelBMFont::create("Unmod", "bigFont.fnt");
 
-    ReuploadSongLabel->setPosition(ccp(128, 192));
-    SetAsEModLabel->setPosition(ccp(223, 194));
-    SetAsSModLabel->setPosition(ccp(313, 195));
-    PasswordLabel->setPosition(ccp(403, 195));
-    EMailLabel->setPosition(ccp(223, 106));
-    UsernameLabel->setPosition(ccp(128, 104));
-    UnmodLabel->setPosition(ccp(313, 107));
-    t2ptr->setPosition(ccp(100, 100));
+    ReuploadSongLabel->setPosition(ccp(48, 21));
+    SetAsEModLabel->setPosition(ccp(48, 23));
+    SetAsSModLabel->setPosition(ccp(48, 24));
+    PasswordLabel->setPosition(ccp(48, 23));
+    EMailLabel->setPosition(ccp(48, 26));
+    UsernameLabel->setPosition(ccp(48, 23));
+    UnmodLabel->setPosition(ccp(48, 26));
 
-    ReuploadSongLabel->setScale(.25f);
-    SetAsEModLabel->setScale(.35f);
-    SetAsSModLabel->setScale(.425f);
-    PasswordLabel->setScale(.4f);
-    EMailLabel->setScale(.575f);
-    UsernameLabel->setScale(.4f);
-    UnmodLabel->setScale(.625f);
+    ReuploadSongLabel->setScale(.325f);
+    SetAsEModLabel->setScale(.45f);
+    SetAsSModLabel->setScale(.525f);
+    PasswordLabel->setScale(.5f);
+    EMailLabel->setScale(.7f);
+    UsernameLabel->setScale(.475f);
+    UnmodLabel->setScale(.7f);
 
     SetAsEModLabel->setColor({0x42, 0x41, 0x41});
     SetAsSModLabel->setColor({0x42, 0x41, 0x41});
     UnmodLabel->setColor({0x42, 0x41, 0x41});
 
-    addChild(ReuploadSongLabel);
-    addChild(SetAsEModLabel);
-    addChild(SetAsSModLabel);
-    addChild(UsernameLabel);
-    addChild(EMailLabel);
-    addChild(PasswordLabel);
-    addChild(UnmodLabel);
-    addChild(t2ptr);
+    ReuploadSong->addChild(ReuploadSongLabel);
+    SetAsEMod->addChild(SetAsEModLabel);
+    SetAsSMod->addChild(SetAsSModLabel);
+    Username->addChild(UsernameLabel);
+    EMail->addChild(EMailLabel);
+    Password->addChild(PasswordLabel);
+    Unmod->addChild(UnmodLabel);
     
     backgroundSprite->setScaleX(winSize.width / size.width);
     backgroundSprite->setScaleY(winSize.height / size.height);
@@ -207,10 +190,6 @@ bool ToolsLayer::init() {
     ToiletMenu->setPosition(ccp(444, -5));
     ToiletMenu->setScale(.7f);
 
-    TestMenu->addChild(TestA);
-    TestMenu->setPosition(ccp(344, -5));
-    TestMenu->setScale(.7f);
-
     ToolButtonsMenu->setPosition(ccp(0, 0));
     ToolButtonsMenu->addChild(ReuploadSongMenu);
     ToolButtonsMenu->addChild(SetAsEModMenu);
@@ -220,14 +199,10 @@ bool ToolsLayer::init() {
     ToolButtonsMenu->addChild(PasswordMenu);
     ToolButtonsMenu->addChild(UnmodMenu);
     ToolButtonsMenu->addChild(ToiletMenu);
-    ToolButtonsMenu->addChild(TestMenu);
     ToolButtonsMenu->setZOrder(-1);
 
     addChild(menu);
     addChild(ToolButtonsMenu);
-
-    t1prt->setPosition(ccp(146, 38));
-    addChild(t1prt);
 
     setKeypadEnabled(true);
 
@@ -244,15 +219,24 @@ void ToolsLayer::backButtonCallback(CCObject* object) {
     keyBackClicked();
 }
 
-void ToolsLayer::switchToCustomLayerButton(CCObject* object) {
-    auto FMODSND = FMODAudioEngine::sharedEngine();
-    FMODSND->playBackgroundMusic("Resources/menuLoop.mp3", true, false);
+void ToolsLayer::switchToLayer(CCObject* object) {
+    switch (GameManager::sharedState()->getGameVariable("isGDPSopen")) {
+        case true: {
+            auto FMODSND = FMODAudioEngine::sharedEngine();
+            FMODSND->playBackgroundMusic("Resources/menuLoop.mp3", true, false);
 
-    auto layer = ToolsLayer::create();
-    auto scene = CCScene::create();
-    scene->addChild(layer);
+            auto layer = ToolsLayer::create();
+            auto scene = CCScene::create();
+            scene->addChild(layer);
 
-    auto transition = CCTransitionFade::create(0.5f, scene);
+            auto transition = CCTransitionFade::create(0.5f, scene);
 
-    CCDirector::sharedDirector()->pushScene(transition);
+            CCDirector::sharedDirector()->pushScene(transition);
+            break;
+        }
+        case false: {
+            auto alert = FLAlertLayer::create(NULL, "This is a secret...", "OK", NULL, "You need to enter the <co>Devpassword</c> to open <cg>GDPS Tools</c>");
+            alert->show();
+        }
+    }
 }

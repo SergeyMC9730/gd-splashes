@@ -5,20 +5,22 @@
 	using namespace cocos2d;
 #else
 	#include "win32cac.h"
-	#include "tools_layer.hpp"
 #endif
 #include "main.hpp"
+#include "tools_layer.hpp"
+#include "debug_layer.hpp"
+#include <math.h>
 
 class $implement(MenuLayer, MainLayer) {
  public:
 	static inline bool (__thiscall* _init)(MenuLayer* self);
 
 	void errorClosed(CCObject* sender){
-		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Google+ is currently closed by Google.");
+		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Google+ is currently closed by <cx>Google.</c>");
 		alert->show();
 	}
 	void errorClosedB(CCObject* sender){
-		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Everyplay is currently closed by Unity.");
+		auto alert = FLAlertLayer::create(NULL, "Closed", "OK", NULL, "Everyplay is currently closed by <cx>Unity.</c>");
 		alert->show();
 	}
 	void errorNotImplemented(CCObject* sender){
@@ -50,6 +52,7 @@ class $implement(MenuLayer, MainLayer) {
 		CCSprite* EveryplaySprite = CCSprite::createWithSpriteFrameName("GJ_everyplayBtn_001.png");
 		CCSprite* ToolsSprite = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png");
 		CCSprite* SneakPeakSprite = CCSprite::create("SneakPeek.png");
+		CCSprite* DebugMenuSprite = CCSprite::create("TestingMenu.png");
 
 		GooglePlusSprite->setColor({0x42, 0x41, 0x41});
 		EveryplaySprite->setColor({0x42, 0x41, 0x41});
@@ -90,16 +93,26 @@ class $implement(MenuLayer, MainLayer) {
 		gd::CCMenuItemSpriteExtra *Tools = CCMenuItemSpriteExtra::create(
 		    ToolsSprite,
 		    this,
-		    menu_selector(ToolsLayer::switchToCustomLayerButton)
+		    menu_selector(ToolsLayer::switchToLayer)
 		);
+		gd::CCMenuItemSpriteExtra* DebugA = CCMenuItemSpriteExtra::create(
+			DebugMenuSprite,
+			this,
+			menu_selector(DebugLayer::switchToLayer)
+		);
+		const char* textd = Splashes::get();
+		CCLabelBMFont *splashLabel = CCLabelBMFont::create(textd, "bigFont.fnt");
 
-		CCLabelBMFont * test = CCLabelBMFont::create("Splash", "bigFont.fnt");
+    	splashLabel->setPosition({436, 253});
+    	splashLabel->setRotation(11);
+		splashLabel->setZOrder(2);
+		splashLabel->setScale(Splashes::get(textd));
 
-    	test->setPosition({436, 253});
-    	test->setRotation(11);
-		test->setZOrder(2);
+		addChild(splashLabel);
+		float kkk = Splashes::get(textd) / 8;
+		CCSequence* ccs0 = CCSequence::createWithTwoActions(CCEaseInOut::create(CCScaleTo::create(1.2f, splashLabel->getScale() + kkk), 2.0f), CCEaseInOut::create(CCScaleTo::create(1.2f, splashLabel->getScale() - kkk), 2.0f));
+		splashLabel->runAction(CCRepeatForever::create(ccs0));
 
-		addChild(test);
 
 		CCMenu* menuIcons = CCMenu::create();
 
@@ -138,6 +151,11 @@ class $implement(MenuLayer, MainLayer) {
 		ToolsMenu->setPosition(ccp(408, 35));
 		ToolsMenu->setScale(.8f);
 
+		CCMenu* DebugMenu = CCMenu::create();
+		DebugMenu->addChild(DebugA);
+		DebugMenu->setPosition(ccp(472, 92));
+		DebugMenu->setScale(.8f);
+
 		menuIcons->addChild(AppStoreGamesMenu);
 		menuIcons->addChild(youtubeTrailerMenu);
 		menuIcons->addChild(youtubeTrailer22Menu);
@@ -145,6 +163,7 @@ class $implement(MenuLayer, MainLayer) {
 		menuIcons->addChild(GooglePlayGamesMenu);
 		menuIcons->addChild(EveryplayMenu);
 		menuIcons->addChild(ToolsMenu);
+		menuIcons->addChild(DebugMenu);
 
 		menuIcons->setPosition(ccp(0, 0));
 
@@ -167,8 +186,16 @@ void inject() {
 		reinterpret_cast<void*>(extract(&MainLayer::inithook)),
 	    reinterpret_cast<void**>(&MainLayer::_init)
 	);
+	//0x730e0
+	MH_CreateHook(
+		reinterpret_cast<void*>(base + MenuLayerOffset),
+		reinterpret_cast<void*>(extract(&MainLayer::inithook)),
+		reinterpret_cast<void**>(&MainLayer::_init)
+	);
 
 	MH_EnableHook(MH_ALL_HOOKS);
+
+	GameManager::sharedState()->setGameVariable("isGDPSopen", false);
 	#endif
 }
 

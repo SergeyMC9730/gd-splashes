@@ -3,6 +3,7 @@
 
 #define WIN32_LEAN_AND_MEAN
 #define NotImplemented { 0x42, 0x41, 0x41 }
+#define AccessDenied NotImplemented
 #ifndef LINUX
 #include <windows.h>
 #include <shellapi.h>
@@ -15,7 +16,13 @@
 #include "cocos-headers/cocos2dx/include/cocos2d.h"
 #include "gd.h/include/gd.h"
 #include "minhook/include/MinHook.h"
+#include "curl/include/curl/curl.h"
+#include <filesystem>
+#include "net.hpp"
 #include <mutex>
+#include <stdlib.h>
+#include <time.h>
+#include "splashes.hpp"
 #pragma warning(pop)
 
 using namespace gd;

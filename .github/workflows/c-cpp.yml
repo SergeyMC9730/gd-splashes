@@ -35,8 +35,13 @@ jobs:
     - name: compile
       run: cmake --build out --config Release
       
-    - name: Upload GDSplashes
+    - name: Upload GDPS Mod
       uses: actions/upload-artifact@v2.2.4
       with:
         name: GDSplashes.dll
         path: ./out/Release/GDSplashes.dll
+    - name: Upload Resource Files
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: req.zip
+        path: ./req/req.zip

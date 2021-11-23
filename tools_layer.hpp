@@ -9,9 +9,8 @@ protected:
     void backButtonCallback(CCObject*);
 public:
     static ToolsLayer* create();
-    void switchToCustomLayerButton(CCObject*);
+    void switchToLayer(CCObject*);
     void ToolsLayer::errorNotImplemented(CCObject* sender);
     void ToolsLayer::errorPermissionDenied(CCObject* sender);
     void ToolsLayer::toiletAction(CCObject* sender);
-    void ToolsLayer::test(CCObject* sender);
 };

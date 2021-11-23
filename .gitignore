@@ -23,7 +23,6 @@
 # Compiled Static libraries
 *.lai
 *.la
-*.lib
 
 # Executables
 *.exe
@@ -40,3 +39,4 @@ build
 .vscode
 out
 .vs
+compie.bat #VS doesn't working well with this project btw
