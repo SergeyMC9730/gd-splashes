@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "splashes.hpp"
+#define CURL_STATICLIB
 #pragma warning(pop)
 
 using namespace gd;
