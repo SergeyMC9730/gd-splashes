@@ -69,6 +69,8 @@ else()
         "${CMAKE_SOURCE_DIR}/cocos-headers/cocos2dx/libcocos2d.lib"
         "${CMAKE_SOURCE_DIR}/cocos-headers/extensions/libExtensions.lib"
         "${CMAKE_SOURCE_DIR}/CURL.lib"
+        "Ws2_32.lib"
+        "Wldap32.lib"
     )
 
     install(
